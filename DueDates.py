@@ -2,6 +2,17 @@ from datetime import datetime
 import csv
 import xlrd
 import tkinter as tk
+import requests
+from bs4 import BeautifulSoup
+#Setting Website URL to var
+url = 'https://nscconline.brightspace.com/d2l/lms/quizzing/user/quizzes_list.d2l?ou=299885'
+
+Data = requests.get(url)
+
+Soup = BeautifulSoup(Data.content,"html.parser")
+
+with open("BooksToScrape.txt", "w") as MyFile:
+    MyFile.write(Soup.prettify())
 
 
 
@@ -17,7 +28,7 @@ def Networking():
          break 
       ExcelTime = float(row["NetTime"])
       PythonDate = datetime(*xlrd.xldate_as_tuple(ExcelTime, 0))
-      if PythonDate < datetime.now():
+      if PythonDate < datetime.now() + 4:
          pass
       else:
           print(f'The next assignment for Networking is:\n')
@@ -35,7 +46,7 @@ def WindowsAdmin():
             pass
          else:
             print(f'The next assignment for Windows Admin is:\n')
-            print(f'{row["Networking"]} is due at {PythonDate} or in {CountDown(PythonDate)}')
+            print(f'{row["Osys"]} is due at {PythonDate} or in {CountDown(PythonDate)}')
             
             break
 
