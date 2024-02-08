@@ -25,20 +25,7 @@ def Networking():
           break
         
 
-   
-def WindowsAdmin():
-      File = open("DueDates.csv","r")
-      CsvReader = csv.DictReader(File)
-      for row in CsvReader:
-         ExcelTime = float(row["OsysTime"])
-         PythonDate = datetime(*xlrd.xldate_as_tuple(ExcelTime, 0))
-         if PythonDate < datetime.now():
-            pass
-         else:
-            print(f'The next assignment for Windows Admin is:\n')
-            print(f'{row["Networking"]} is due at {PythonDate} or in {CountDown(PythonDate)}')
-            
-            break
+
 
 
 def main():
