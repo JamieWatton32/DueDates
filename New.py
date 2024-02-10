@@ -1,34 +1,23 @@
-from tkinter import *
-Root=Tk()
-# add widgets here
-Root.title('Hello Python')
-RootFrame=Frame(Root,width=500,height=500,bg='green')
-RootFrame.pack()
-OsysButton=Button(RootFrame,text='OSYS')
-OsysButton.pack(side='bottom')
-NetworkingButton = Button(RootFrame,text='Networking')
-NetworkingButton.pack(side='bottom')
-  def CreateFrame(self):
-   
-      DisplayFrame = Frame(master=self)
-      DisplayFrame.pack()
-       
+from datetime import datetime
+import xlrd
+import tkinter as tk
+import pandas as pd
+import numpy as np
 
-   def Networking(self):
-      CsvReader = csv.DictReader(self.File)
-      for row in CsvReader:
-         if row["NetTime"] == "":
-            break 
-         ExcelTime = float(row["NetTime"])
-         PythonDate = datetime(*xlrd.xldate_as_tuple(ExcelTime, 0))
-         if PythonDate < datetime.now():
-           return PythonDate
-         
-         
-   def WindowsAdmin(self):
-         CsvReader = csv.DictReader(self.File)
-         for row in CsvReader:
-            ExcelTime = float(row["OsysTime"])
-            PythonDate = datetime(*xlrd.xldate_as_tuple(ExcelTime, 0))
-            if PythonDate < datetime.now():
-               return PythonDate
+def main():
+   File = pd.read_csv("DueDates.csv")
+   CleanedFile = File.dropna()
+   Data = CleanedFile.to_numpy()
+   Rows = Data.shape[0]
+   Cols = Data.shape[1]
+   Data = pd.DataFrame()
+   for x in range(0,Rows):
+      for y in range(0,Cols):
+        if type(Data[x,y]) == float:
+         pass
+
+           
+
+
+if __name__ == "__main__":
+   main()
