@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from xlrd import xlrd
+import xlrd
 import pandas as pd
 import numpy as np
 
@@ -37,27 +37,30 @@ class DataTime:
         self.NetArray = Networking.to_numpy()
 
     def WindowsAnalyze(self):
+        WindowsList = []
         for row in self.WinArray:
             ExcelTime = float(row[1])
             self.PythonDate = datetime(*xlrd.xldate_as_tuple(ExcelTime, 0))
             if self._CountDown() >timedelta(days=14):
                 break
-            if self.PythonDate < datetime.now():
-                pass
-            else:
-                print(f'{row[0]} for OSYS is due on {self.PythonDate} or in {self.Days} days, {int(self.Hours)} hours and, {int(self.Mins)} minutes')
+            elif self.PythonDate > datetime.now():
+                WindowsList.append(f'{row[0]} for Windows Admin is due at {self.PythonDate} or in {self.Days} days,'
+                                   f'{int(self.Hours)} hours and, {int(self.Mins)} minutes')
+        return WindowsList    
+    
                
             
     def NetAnalyze(self):
+        NetList = []
         for row in self.NetArray:
             ExcelTime = float(row[1])
             self.PythonDate = datetime(*xlrd.xldate_as_tuple(ExcelTime, 0))
             if self._CountDown() >timedelta(days=14):
                 break
-            if self.PythonDate < datetime.now():
-                pass
-            else:
-                print(f'{row[0]} for Networking is due at {self.PythonDate} or in {self.Days} days, {int(self.Hours)} hours and, {int(self.Mins)} minutes')
+            elif self.PythonDate > datetime.now():
+                NetList.append(f'{row[0]} for Networking is due at {self.PythonDate} or in {self.Days} days,'
+                               f'{int(self.Hours)} hours and, {int(self.Mins)} minutes')
+        return NetList    
     
        
 
@@ -65,9 +68,12 @@ class DataTime:
 
 def main():
     print(f'Upcoming Due Dates:')
-    DataTime().WindowsAnalyze
     print(f'------------------------------')
+    for i in DataTime().NetAnalyze():
+        print(i)
     print(f'------------------------------')
+    for i in DataTime().WindowsAnalyze():
+        print(i)
     
     
 
