@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-import xlrd
+from xlrd import xlrd
 import pandas as pd
 import numpy as np
 
